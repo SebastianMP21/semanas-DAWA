@@ -1,0 +1,54 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Personaje {
+  id           Int       @id @default(autoincrement())
+  img          String 
+  nombre       String?  
+  edad         Int 
+  peso         Decimal
+  historia     String @db.VarChar(255)
+  pelicula_ser String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("personajes")
+}
+
+model Pelicula {
+  id           Int @id @default(autoincrement())
+  titulo       String?
+  fecha_creac  String?
+  calificacion Int
+  persona_asoc String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@map("peliculas")
+}
+
+model Genero {
+  id          Int @id @default(autoincrement())
+  nombre       String?
+  img          String?
+  peli_asoc    String?
+  @@map("generos")
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String?
+  password String?
+  @@map("users")
+}
+
+
+
